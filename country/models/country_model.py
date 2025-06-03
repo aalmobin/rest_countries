@@ -1,32 +1,6 @@
 from django.db import models
 
 
-class Currency(models.Model):
-    code = models.CharField(max_length=3, primary_key=True)
-    name = models.CharField(max_length=100)
-    symbol = models.CharField(max_length=10)
-
-    def __str__(self):
-        return f"{self.name} ({self.code})"
-
-
-class Language(models.Model):
-    code = models.CharField(max_length=10, primary_key=True)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Demonym(models.Model):
-    language = models.CharField(max_length=3)  # e.g., 'eng', 'fra'
-    female = models.CharField(max_length=50)
-    male = models.CharField(max_length=50)
-
-    def __str__(self):
-        return f"{self.language}: {self.male}/{self.female}"
-
-
 class Country(models.Model):
     cca2 = models.CharField(max_length=10, null=True, blank=True)
     cca3 = models.CharField(max_length=10, null=True, blank=True)
@@ -41,14 +15,14 @@ class Country(models.Model):
     independent = models.BooleanField()
     status = models.CharField(max_length=50)
     un_member = models.BooleanField()
-    currencies = models.ManyToManyField(Currency)
+    currencies = models.ManyToManyField("country.Currency")
     idd_root = models.CharField(max_length=5)
     idd_suffixes = models.JSONField(default=list)
     capital = models.CharField(max_length=255, null=True, blank=True)
     alt_spellings = models.JSONField(default=list)
     region = models.CharField(max_length=255, null=True, blank=True)
     subregion = models.CharField(max_length=255, null=True, blank=True)
-    languages = models.ManyToManyField(Language)
+    languages = models.ManyToManyField("country.Language")
     latlng = models.JSONField(default=list)
     landlocked = models.BooleanField()
     borders = models.JSONField(default=list)
@@ -70,7 +44,7 @@ class Country(models.Model):
     capital_latlng = models.JSONField(default=list)
     postal_code_format = models.CharField(max_length=255, null=True, blank=True)
     postal_code_regex = models.CharField(max_length=255, null=True, blank=True)
-    demonyms = models.ManyToManyField(Demonym)
+    demonyms = models.ManyToManyField("country.Demonym")
 
     google_maps_url = models.URLField()
     openstreet_maps_url = models.URLField()
