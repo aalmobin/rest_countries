@@ -11,6 +11,4 @@ class CurrencySelector(BaseSelector):
 
     @staticmethod
     def list(search_params: dict) -> list:
-        return CurrencySelector.dynamic_filter(
-            Currency.objects.filter(deleted=False), search_params
-        )
+        return CurrencySelector.dynamic_filter(Currency.objects.all(), search_params)

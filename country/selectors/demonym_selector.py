@@ -11,6 +11,4 @@ class DemonymSelector(BaseSelector):
 
     @staticmethod
     def list(search_params: dict) -> list:
-        return DemonymSelector.dynamic_filter(
-            Demonym.objects.filter(deleted=False), search_params
-        )
+        return DemonymSelector.dynamic_filter(Demonym.objects.all(), search_params)

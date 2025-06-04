@@ -11,6 +11,4 @@ class LanguageSelector(BaseSelector):
 
     @staticmethod
     def list(search_params: dict) -> list:
-        return LanguageSelector.dynamic_filter(
-            Language.objects.filter(deleted=False), search_params
-        )
+        return LanguageSelector.dynamic_filter(Language.objects.all(), search_params)

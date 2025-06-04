@@ -11,6 +11,4 @@ class CountrySelector(BaseSelector):
 
     @staticmethod
     def list(search_params: dict) -> list:
-        return CountrySelector.dynamic_filter(
-            Country.objects.filter(deleted=False), search_params
-        )
+        return CountrySelector.dynamic_filter(Country.objects.all(), search_params)
