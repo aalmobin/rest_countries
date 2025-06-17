@@ -20,6 +20,14 @@ class TestCurrencyService:
         assert instance.name == data["name"]
         assert instance.symbol == data["symbol"]
 
+    def test_update_without_instance(self):
+        data = {"name": "Updated Name", "symbol": "updated symbol"}
+        instance = CurrencyService()
+        with pytest.raises(
+            ValidationError, match="No Currency instance set for updating."
+        ):
+            instance.update(data)
+
     def test_destroy(self, currency):
         instance = CurrencyService(currency_instance=currency)
         res = instance.destroy()
