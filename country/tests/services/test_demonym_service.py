@@ -17,6 +17,14 @@ class TestDemonymService:
         instance = DemonymService(demonym_instance=demonym).update(data)
         assert instance.language == data["language"]
 
+    def test_update_without_instance(self):
+        data = {"language": "Updated Name"}
+        instance = DemonymService()
+        with pytest.raises(
+            ValidationError, match="No Demonym instance set for updating."
+        ):
+            instance.update(data)
+
     def test_destroy(self, demonym):
         instance = DemonymService(demonym_instance=demonym)
         res = instance.destroy()

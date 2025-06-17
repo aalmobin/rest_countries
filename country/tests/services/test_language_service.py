@@ -17,6 +17,14 @@ class TestLanguageService:
         instance = LanguageService(language_instance=language).update(data)
         assert instance.name == data["name"]
 
+    def test_update_without_instance(self):
+        data = {"name": "Updated Name"}
+        instance = LanguageService()
+        with pytest.raises(
+            ValidationError, match="No Language instance set for updating."
+        ):
+            instance.update(data)
+
     def test_destroy(self, language):
         instance = LanguageService(language_instance=language)
         res = instance.destroy()
